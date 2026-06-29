@@ -9,9 +9,9 @@
 ## Key Features
 
 1. **Lazy Tail Indexing**: Background indexing of log file offsets keeps memory usage low and scrolling instantaneous, even on gigabyte-sized files.
-2. **Tmux-like Split Layouts**: Split your viewport vertical, horizontal, or in a 2x2 grid to watch different tabs simultaneously.
+2. **Tmux-like Split Layouts**: Split your viewport vertical, horizontal, or in a 2x2 grid to watch different filters simultaneously.
 3. **Structured Log Parsing**: Automatically detects and parses JSON formatted logs (`level`, `message`, `time`) and standard plaintext log severities (`[INFO]`, `[ERROR]`, etc.).
-4. **Real-time Filter Tabs**: Add (`t`), delete (`x`/`c`), or rename (`r`) tabs on-the-fly. Tabs filter background offsets in concurrent tasks, avoiding UI freeze.
+4. **Real-time Filters**: Add (`f`), delete (`x`/`c`), or rename (`r`) filters on-the-fly. Filters filter background offsets in concurrent tasks, avoiding UI freeze.
 5. **Interactive Highlight**: Highlight text patterns using regex (`s`) and jump between matching lines (`n`/`N`).
 6. **Flexible Config Loading & Export**: Load settings automatically from local directory or user home config files, with interactive exports (`e`).
 
