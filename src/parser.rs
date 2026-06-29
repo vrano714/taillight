@@ -68,29 +68,48 @@ pub fn parse_line(line: String) -> ParsedLine {
                     .map(|s| s.to_string());
 
                 // Try to find message
-                let message = obj.get("message")
-                    .or_else(|| obj.get("msg"))
-                    .or_else(|| obj.get("body"))
-                    .or_else(|| obj.get("log"))
-                    .map(|v| {
-                        if v.is_string() {
-                            v.as_str().unwrap().to_string()
-                        } else {
-                            v.to_string()
-                        }
-                    })
-                    .unwrap_or_else(|| {
-                        // Fallback: use the raw JSON without the keys we extracted
-                        let mut filtered_obj = obj.clone();
-                        filtered_obj.remove("level");
-                        filtered_obj.remove("severity");
-                        filtered_obj.remove("lvl");
-                        filtered_obj.remove("time");
-                        filtered_obj.remove("timestamp");
-                        filtered_obj.remove("@timestamp");
-                        filtered_obj.remove("t");
-                        serde_json::Value::Object(filtered_obj).to_string()
-                    });
+                let msg_key = if obj.contains_key("message") { Some("message") }
+                    else if obj.contains_key("msg") { Some("msg") }
+                    else if obj.contains_key("body") { Some("body") }
+                    else if obj.contains_key("log") { Some("log") }
+                    else { None };
+
+                let message = if let Some(key) = msg_key {
+                    let msg_val = obj.get(key).unwrap();
+                    let msg_str = if msg_val.is_string() {
+                        msg_val.as_str().unwrap().to_string()
+                    } else {
+                        msg_val.to_string()
+                    };
+
+                    // Check if there are other custom fields
+                    let mut extra_obj = obj.clone();
+                    extra_obj.remove("level");
+                    extra_obj.remove("severity");
+                    extra_obj.remove("lvl");
+                    extra_obj.remove("time");
+                    extra_obj.remove("timestamp");
+                    extra_obj.remove("@timestamp");
+                    extra_obj.remove("t");
+                    extra_obj.remove(key);
+
+                    if !extra_obj.is_empty() {
+                        format!("{} {}", msg_str, serde_json::Value::Object(extra_obj))
+                    } else {
+                        msg_str
+                    }
+                } else {
+                    // Fallback: use the raw JSON without the keys we extracted
+                    let mut filtered_obj = obj.clone();
+                    filtered_obj.remove("level");
+                    filtered_obj.remove("severity");
+                    filtered_obj.remove("lvl");
+                    filtered_obj.remove("time");
+                    filtered_obj.remove("timestamp");
+                    filtered_obj.remove("@timestamp");
+                    filtered_obj.remove("t");
+                    serde_json::Value::Object(filtered_obj).to_string()
+                };
 
                 return ParsedLine {
                     level,
