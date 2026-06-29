@@ -1,3 +1,5 @@
+![screenshot](./taillight.png "screenshot")
+
 # Taillight (Real-Time Log Viewer)
 
 `taillight` (you may alias as `tl`) is a fast, terminal-based log viewer written in Rust. It tail-indexes growing logs in real-time, performing lazy offsets parsing (JSON or plaintext), and renders them in top-bar tabs and tmux-like split layouts.
