@@ -1,0 +1,52 @@
+{
+  "layout": "Single",
+  "active_pane_idx": 0,
+  "filters": [
+    {
+      "name": "All",
+      "severity_filter": null,
+      "regex_filter": null
+    },
+    {
+      "name": "Error",
+      "severity_filter": "Error",
+      "regex_filter": null
+    },
+    {
+      "name": "Warn",
+      "severity_filter": "Warn",
+      "regex_filter": null
+    },
+    {
+      "name": "Info",
+      "severity_filter": "Info",
+      "regex_filter": null
+    },
+    {
+      "name": "Debug",
+      "severity_filter": "Debug",
+      "regex_filter": null
+    }
+  ],
+  "panes": [
+    {
+      "filter_index": 0,
+      "highlight_query": null
+    },
+    {
+      "filter_index": 0,
+      "highlight_query": null
+    },
+    {
+      "filter_index": 0,
+      "highlight_query": null
+    },
+    {
+      "filter_index": 0,
+      "highlight_query": null
+    }
+  ],
+  "show_timestamps": true,
+  "ctrl_c_behavior": "KillAll",
+  "word_wrap": false
+}
